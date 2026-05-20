@@ -244,12 +244,7 @@ function DetailPage() {
                   <span className="flex-shrink-0 h-6 w-6 rounded-full bg-foreground text-background flex items-center justify-center">
                     <Check className="h-3.5 w-3.5" strokeWidth={3} />
                   </span>
-                  <span
-                    className="text-foreground leading-[1.6] tracking-[-0.01em] text-2xl font-thin"
-                    style={{
-                      fontFamily: '"Pretendard Variable", Pretendard, ui-sans-serif, system-ui, sans-serif',
-                    }}
-                  >
+                  <span className="text-foreground leading-[1.6] tracking-[-0.01em] text-2xl font-thin">
                     {p}
                   </span>
                 </li>
