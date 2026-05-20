@@ -4,7 +4,7 @@ import l1 from "@/assets/matterport/property-3.jpg";
 import l2 from "@/assets/listing-2.jpg";
 import l3 from "@/assets/listing-3.jpg";
 import { SiteHeader } from "@/components/site-header";
-import { Filter } from "lucide-react";
+import { Filter, X } from "lucide-react";
 
 export const Route = createFileRoute("/map")({
   head: () => ({
@@ -17,25 +17,32 @@ export const Route = createFileRoute("/map")({
 });
 
 const LISTINGS = [
-  { id: 1, slug: "teheran-prime-office", img: l1, area: "\uac15\ub0a8\uad6c \u00b7 \uc5ed\uc0bc\ub3d9", title: "\ud14c\ud5e4\ub780\ub85c \ud504\ub77c\uc784 \uc624\ud53c\uc2a4", price: 48000000000, priceStr: "480\uc5b5", spec: "B4 / 15F \u00b7 \uc5f0 6,200\u33a1 \u00b7 \ub300\uc9c0 760\u33a1", type: "\ud504\ub77c\uc784 \uc624\ud53c\uc2a4", yield: 1.1, landArea: 760, totalArea: 6200, lat: 37.502, lng: 127.039 },
-  { id: 2, slug: "dosan-corner", img: l2, area: "\uac15\ub0a8\uad6c \u00b7 \uc2e0\uc0ac\ub3d9", title: "\ub3c4\uc0b0\ub300\ub85c \ucf54\ub108 \ube4c\ub529", price: 32000000000, priceStr: "320\uc5b5", spec: "B2 / 8F \u00b7 \uc5f0 3,400\u33a1 \u00b7 \ub300\uc9c0 420\u33a1", type: "\ucf54\ub108 \ube4c\ub529", yield: 2.1, landArea: 420, totalArea: 3400, lat: 37.522, lng: 127.033 },
-  { id: 3, slug: "yeoksam-income", img: l3, area: "\uac15\ub0a8\uad6c \u00b7 \uc5ed\uc0bc\ub3d9", title: "\uc5ed\uc0bc \uc218\uc775\ud615 \ube4c\ub529", price: 21500000000, priceStr: "215\uc5b5", spec: "B2 / 7F \u00b7 \uc5f0 2,800\u33a1 \u00b7 \ub300\uc9c0 360\u33a1", type: "\uc218\uc775\ud615", yield: 3.1, landArea: 360, totalArea: 2800, lat: 37.498, lng: 127.036 },
-  { id: 4, slug: "samsung-hq", img: l1, area: "\uac15\ub0a8\uad6c \u00b7 \uc0bc\uc131\ub3d9", title: "\uc0bc\uc131\ub3d9 \uc0ac\uc625\ud615 \ube4c\ub529", price: 54000000000, priceStr: "540\uc5b5", spec: "B4 / 12F \u00b7 \uc5f0 5,400\u33a1 \u00b7 \ub300\uc9c0 680\u33a1", type: "\uc0ac\uc625\ud615", yield: 4.1, landArea: 680, totalArea: 5400, lat: 37.511, lng: 127.058 },
-  { id: 5, slug: "seocho-gangnam", img: l2, area: "\uc11c\ucd08\uad6c \u00b7 \uc11c\ucd08\ub3d9", title: "\uc11c\ucd08 \uac15\ub0a8\ub300\ub85c \ube4c\ub529", price: 26000000000, priceStr: "260\uc5b5", spec: "B3 / 9F \u00b7 \uc5f0 3,100\u33a1 \u00b7 \ub300\uc9c0 410\u33a1", type: "\uc218\uc775\ud615", yield: 4.5, landArea: 410, totalArea: 3100, lat: 37.494, lng: 127.013 },
-  { id: 6, slug: "jamsil-main", img: l3, area: "\uc1a1\ud30c\uad6c \u00b7 \uc7a0\uc2e4\ub3d9", title: "\uc7a0\uc2e4 \uba54\uc778 \ube4c\ub529", price: 41000000000, priceStr: "410\uc5b5", spec: "B3 / 11F \u00b7 \uc5f0 4,800\u33a1 \u00b7 \ub300\uc9c0 590\u33a1", type: "\ud504\ub77c\uc784 \uc624\ud53c\uc2a4", yield: 6.1, landArea: 590, totalArea: 4800, lat: 37.513, lng: 127.100 },
+  { id: 1, slug: "teheran-prime-office", img: l1, area: "\uac15\ub0a8\uad6c \u00b7 \uc5ed\uc0bc\ub3d9", dong: "\uc5ed\uc0bc\ub3d9", title: "\ud14c\ud5e4\ub780\ub85c \ud504\ub77c\uc784 \uc624\ud53c\uc2a4", price: 48000000000, priceStr: "480\uc5b5", spec: "B4 / 15F \u00b7 \uc5f0 6,200\u33a1 \u00b7 \ub300\uc9c0 760\u33a1", type: "\ud504\ub77c\uc784 \uc624\ud53c\uc2a4", yield: 1.1, landArea: 760, totalArea: 6200, lat: 37.502, lng: 127.039 },
+  { id: 2, slug: "dosan-corner", img: l2, area: "\uac15\ub0a8\uad6c \u00b7 \uc2e0\uc0ac\ub3d9", dong: "\uc2e0\uc0ac\ub3d9", title: "\ub3c4\uc0b0\ub300\ub85c \ucf54\ub108 \ube4c\ub529", price: 32000000000, priceStr: "320\uc5b5", spec: "B2 / 8F \u00b7 \uc5f0 3,400\u33a1 \u00b7 \ub300\uc9c0 420\u33a1", type: "\ucf54\ub108 \ube4c\ub529", yield: 2.1, landArea: 420, totalArea: 3400, lat: 37.522, lng: 127.033 },
+  { id: 3, slug: "yeoksam-income", img: l3, area: "\uac15\ub0a8\uad6c \u00b7 \uc5ed\uc0bc\ub3d9", dong: "\uc5ed\uc0bc\ub3d9", title: "\uc5ed\uc0bc \uc218\uc775\ud615 \ube4c\ub529", price: 21500000000, priceStr: "215\uc5b5", spec: "B2 / 7F \u00b7 \uc5f0 2,800\u33a1 \u00b7 \ub300\uc9c0 360\u33a1", type: "\uc218\uc775\ud615", yield: 3.1, landArea: 360, totalArea: 2800, lat: 37.498, lng: 127.036 },
+  { id: 4, slug: "samsung-hq", img: l1, area: "\uac15\ub0a8\uad6c \u00b7 \uc0bc\uc131\ub3d9", dong: "\uc0bc\uc131\ub3d9", title: "\uc0bc\uc131\ub3d9 \uc0ac\uc625\ud615 \ube4c\ub529", price: 54000000000, priceStr: "540\uc5b5", spec: "B4 / 12F \u00b7 \uc5f0 5,400\u33a1 \u00b7 \ub300\uc9c0 680\u33a1", type: "\uc0ac\uc625\ud615", yield: 4.1, landArea: 680, totalArea: 5400, lat: 37.511, lng: 127.058 },
+  { id: 5, slug: "seocho-gangnam", img: l2, area: "\uc11c\ucd08\uad6c \u00b7 \uc11c\ucd08\ub3d9", dong: "\uc11c\ucd08\ub3d9", title: "\uc11c\ucd08 \uac15\ub0a8\ub300\ub85c \ube4c\ub529", price: 26000000000, priceStr: "260\uc5b5", spec: "B3 / 9F \u00b7 \uc5f0 3,100\u33a1 \u00b7 \ub300\uc9c0 410\u33a1", type: "\uc218\uc775\ud615", yield: 4.5, landArea: 410, totalArea: 3100, lat: 37.494, lng: 127.013 },
+  { id: 6, slug: "jamsil-main", img: l3, area: "\uc1a1\ud30c\uad6c \u00b7 \uc7a0\uc2e4\ub3d9", dong: "\uc7a0\uc2e4\ub3d9", title: "\uc7a0\uc2e4 \uba54\uc778 \ube4c\ub529", price: 41000000000, priceStr: "410\uc5b5", spec: "B3 / 11F \u00b7 \uc5f0 4,800\u33a1 \u00b7 \ub300\uc9c0 590\u33a1", type: "\ud504\ub77c\uc784 \uc624\ud53c\uc2a4", yield: 6.1, landArea: 590, totalArea: 4800, lat: 37.513, lng: 127.100 },
 ];
+
+// Zoom level threshold: <= this value shows individual price bubbles
+const BUBBLE_ZOOM_LEVEL = 4;
 
 function MapPage() {
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapInstance, setMapInstance] = useState<any>(null);
   const [clustererInstance, setClustererInstance] = useState<any>(null);
+  const overlaysRef = useRef<any[]>([]);
+  const markersRef = useRef<any[]>([]);
   
   const [priceFilter, setPriceFilter] = useState("\uc804\uccb4");
   const [landAreaFilter, setLandAreaFilter] = useState("\uc804\uccb4");
   const [totalAreaFilter, setTotalAreaFilter] = useState("\uc804\uccb4");
   const [yieldFilter, setYieldFilter] = useState("\uc804\uccb4");
+  const [dongFilter, setDongFilter] = useState<string | null>(null);
 
   const filteredListings = LISTINGS.filter((l) => {
+    if (dongFilter && l.dong !== dongFilter) return false;
     if (priceFilter !== "\uc804\uccb4") {
       const limit = parseInt(priceFilter.replace(/[^0-9]/g, "")) * 100000000;
       if (l.price > limit) return false;
@@ -54,6 +61,12 @@ function MapPage() {
     }
     return true;
   });
+
+  const updateOverlayVisibility = useCallback((map: any, level: number) => {
+    if (!map) return;
+    const showBubbles = level <= BUBBLE_ZOOM_LEVEL;
+    overlaysRef.current.forEach(ov => ov.setMap(showBubbles ? map : null));
+  }, []);
 
   const initMap = useCallback(() => {
     if (typeof window === "undefined") return;
@@ -77,17 +90,27 @@ function MapPage() {
       calculator: [10, 30, 50],
       texts: (count: number) => count.toString(),
       styles: [{
-        width: '30px', height: '30px',
-        background: 'rgba(0, 0, 0, 0.8)',
-        borderRadius: '15px',
+        width: '36px', height: '36px',
+        background: 'rgba(68, 111, 231, 0.9)',
+        borderRadius: '18px',
         color: '#fff',
         textAlign: 'center',
         fontWeight: 'bold',
-        lineHeight: '30px'
+        fontSize: '14px',
+        lineHeight: '36px',
+        border: '2px solid #fff',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
       }]
     });
     setClustererInstance(clusterer);
-  }, []);
+
+    // Listen for zoom changes to toggle bubble overlays
+    // @ts-ignore
+    window.kakao.maps.event.addListener(map, 'zoom_changed', function() {
+      const currentLevel = map.getLevel();
+      updateOverlayVisibility(map, currentLevel);
+    });
+  }, [updateOverlayVisibility]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -106,7 +129,6 @@ function MapPage() {
         }
         return;
       }
-      // SDK not yet loaded, retry after a short delay
       setTimeout(tryInit, 200);
     };
 
@@ -118,19 +140,80 @@ function MapPage() {
     // @ts-ignore
     if (!mapInstance || !clustererInstance || !window.kakao) return;
 
+    // Clear old markers and overlays
     clustererInstance.clear();
+    overlaysRef.current.forEach(ov => ov.setMap(null));
+    overlaysRef.current = [];
+    markersRef.current = [];
+
+    const currentLevel = mapInstance.getLevel();
 
     const newMarkers = filteredListings.map(l => {
       // @ts-ignore
-      const marker = new window.kakao.maps.Marker({
-        // @ts-ignore
-        position: new window.kakao.maps.LatLng(l.lat, l.lng),
-        title: l.title
+      const position = new window.kakao.maps.LatLng(l.lat, l.lng);
+
+      // Regular marker for clusterer
+      // @ts-ignore
+      const marker = new window.kakao.maps.Marker({ position, title: l.title });
+
+      // Price bubble CustomOverlay
+      const bubbleContent = document.createElement('div');
+      bubbleContent.style.cssText = 'cursor:pointer;position:relative;';
+      bubbleContent.innerHTML = '<div style="' +
+        'background:#446fe7;color:#fff;padding:6px 14px;border-radius:8px;' +
+        'font-size:13px;font-weight:700;white-space:nowrap;' +
+        'box-shadow:0 2px 12px rgba(68,111,231,0.4);' +
+        'border:2px solid #fff;' +
+        'transition:transform 0.15s ease;' +
+        '">' + l.priceStr + '</div>' +
+        '<div style="' +
+        'width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;' +
+        'border-top:8px solid #446fe7;margin:0 auto;' +
+        '"></div>';
+
+      bubbleContent.addEventListener('mouseenter', function() {
+        const inner = bubbleContent.querySelector('div') as HTMLElement;
+        if (inner) inner.style.transform = 'scale(1.08)';
+      });
+      bubbleContent.addEventListener('mouseleave', function() {
+        const inner = bubbleContent.querySelector('div') as HTMLElement;
+        if (inner) inner.style.transform = 'scale(1)';
+      });
+      bubbleContent.addEventListener('click', function() {
+        // Filter by dong
+        setDongFilter(l.dong);
+        // Scroll to the listing
+        setTimeout(() => {
+          const el = document.getElementById('listing-' + l.id);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            el.classList.add('bg-secondary');
+            setTimeout(() => el.classList.remove('bg-secondary'), 1500);
+          }
+        }, 100);
       });
 
       // @ts-ignore
+      const overlay = new window.kakao.maps.CustomOverlay({
+        position: position,
+        content: bubbleContent,
+        yAnchor: 1.3,
+        zIndex: 3,
+      });
+
+      // Show overlay only if currently zoomed in enough
+      if (currentLevel <= BUBBLE_ZOOM_LEVEL) {
+        overlay.setMap(mapInstance);
+      }
+
+      overlaysRef.current.push(overlay);
+      markersRef.current.push(marker);
+
+      // Marker click also filters by dong
+      // @ts-ignore
       window.kakao.maps.event.addListener(marker, 'click', function() {
-        const el = document.getElementById(`listing-${l.id}`);
+        setDongFilter(l.dong);
+        const el = document.getElementById('listing-' + l.id);
         if (el) {
           el.scrollIntoView({ behavior: 'smooth', block: 'center' });
           el.classList.add('bg-secondary');
@@ -209,11 +292,21 @@ function MapPage() {
               <option value={"4% \uc774\uc0c1"}>{"4% \uc774\uc0c1"}</option>
               <option value={"5% \uc774\uc0c1"}>{"5% \uc774\uc0c1"}</option>
             </select>
+
+            {dongFilter && (
+              <button
+                onClick={() => setDongFilter(null)}
+                className="px-3 py-1.5 border border-blue-400 bg-blue-50 text-blue-700 rounded-full text-sm font-medium flex items-center gap-1.5 hover:bg-blue-100 transition-colors"
+              >
+                {dongFilter}
+                <X size={14} />
+              </button>
+            )}
           </div>
           
           <div className="flex-1 overflow-y-auto p-4 lg:p-6">
             <div className="text-sm font-medium text-foreground pb-3 mb-4 border-b border-border">
-              {"\ucd1d"} {filteredListings.length}{"\uac1c\uc758 \ub9e4\ubb3c"}
+              {dongFilter ? dongFilter + " " : ""}{"\ucd1d"} {filteredListings.length}{"\uac1c\uc758 \ub9e4\ubb3c"}
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {filteredListings.map(l => (
@@ -257,6 +350,7 @@ function MapPage() {
                     setLandAreaFilter("\uc804\uccb4");
                     setTotalAreaFilter("\uc804\uccb4");
                     setYieldFilter("\uc804\uccb4");
+                    setDongFilter(null);
                   }}
                   className="px-5 py-2.5 bg-foreground text-background rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
                 >
