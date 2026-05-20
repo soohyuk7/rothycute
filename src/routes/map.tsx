@@ -64,6 +64,19 @@ function MapPage() {
       return;
     }
 
+    if (document.getElementById("kakao-map-script")) return;
+    const script = document.createElement("script");
+    script.id = "kakao-map-script"; // 👇 [추가된 부분] ID 부여
+    script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=57f311a217c25fabbd88c50ecfb75751&libraries=clusterer&autoload=false";
+    document.head.appendChild(script);
+    script.onload = () => {
+      // @ts-ignore
+      window.kakao.maps.load(() => {
+        initMap();
+      });
+    };
+  }, []);
+
     const script = document.createElement("script");
     script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=57f311a217c25fabbd88c50ecfb75751&libraries=clusterer&autoload=false";
     document.head.appendChild(script);
