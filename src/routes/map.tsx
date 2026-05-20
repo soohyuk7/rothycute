@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import l1 from "@/assets/matterport/property-3.jpg";
 import l2 from "@/assets/listing-2.jpg";
 import l3 from "@/assets/listing-3.jpg";
@@ -9,20 +9,20 @@ import { Filter } from "lucide-react";
 export const Route = createFileRoute("/map")({
   head: () => ({
     meta: [
-      { title: "지도 — 로커부동산중개법인" },
-      { name: "description", content: "지도에서 매물 위치를 확인하세요." },
+      { title: "\uc9c0\ub3c4 \u2014 \ub85c\ucee4\ubd80\ub3d9\uc0b0\uc911\uac1c\ubc95\uc778" },
+      { name: "description", content: "\uc9c0\ub3c4\uc5d0\uc11c \ub9e4\ubb3c \uc704\uce58\ub97c \ud655\uc778\ud558\uc138\uc694." },
     ],
   }),
   component: MapPage,
 });
 
 const LISTINGS = [
-  { id: 1, slug: "teheran-prime-office", img: l1, area: "강남구 · 역삼동", title: "테헤란로 프라임 오피스", price: 48000000000, priceStr: "480억", spec: "B4 / 15F · 연 6,200㎡ · 대지 760㎡", type: "프라임 오피스", yield: 1.1, landArea: 760, totalArea: 6200, lat: 37.502, lng: 127.039 },
-  { id: 2, slug: "dosan-corner", img: l2, area: "강남구 · 신사동", title: "도산대로 코너 빌딩", price: 32000000000, priceStr: "320억", spec: "B2 / 8F · 연 3,400㎡ · 대지 420㎡", type: "코너 빌딩", yield: 2.1, landArea: 420, totalArea: 3400, lat: 37.522, lng: 127.033 },
-  { id: 3, slug: "yeoksam-income", img: l3, area: "강남구 · 역삼동", title: "역삼 수익형 빌딩", price: 21500000000, priceStr: "215억", spec: "B2 / 7F · 연 2,800㎡ · 대지 360㎡", type: "수익형", yield: 3.1, landArea: 360, totalArea: 2800, lat: 37.498, lng: 127.036 },
-  { id: 4, slug: "samsung-hq", img: l1, area: "강남구 · 삼성동", title: "삼성동 사옥형 빌딩", price: 54000000000, priceStr: "540억", spec: "B4 / 12F · 연 5,400㎡ · 대지 680㎡", type: "사옥형", yield: 4.1, landArea: 680, totalArea: 5400, lat: 37.511, lng: 127.058 },
-  { id: 5, slug: "seocho-gangnam", img: l2, area: "서초구 · 서초동", title: "서초 강남대로 빌딩", price: 26000000000, priceStr: "260억", spec: "B3 / 9F · 연 3,100㎡ · 대지 410㎡", type: "수익형", yield: 4.5, landArea: 410, totalArea: 3100, lat: 37.494, lng: 127.013 },
-  { id: 6, slug: "jamsil-main", img: l3, area: "송파구 · 잠실동", title: "잠실 메인 빌딩", price: 41000000000, priceStr: "410억", spec: "B3 / 11F · 연 4,800㎡ · 대지 590㎡", type: "프라임 오피스", yield: 6.1, landArea: 590, totalArea: 4800, lat: 37.513, lng: 127.100 },
+  { id: 1, slug: "teheran-prime-office", img: l1, area: "\uac15\ub0a8\uad6c \u00b7 \uc5ed\uc0bc\ub3d9", title: "\ud14c\ud5e4\ub780\ub85c \ud504\ub77c\uc784 \uc624\ud53c\uc2a4", price: 48000000000, priceStr: "480\uc5b5", spec: "B4 / 15F \u00b7 \uc5f0 6,200\u33a1 \u00b7 \ub300\uc9c0 760\u33a1", type: "\ud504\ub77c\uc784 \uc624\ud53c\uc2a4", yield: 1.1, landArea: 760, totalArea: 6200, lat: 37.502, lng: 127.039 },
+  { id: 2, slug: "dosan-corner", img: l2, area: "\uac15\ub0a8\uad6c \u00b7 \uc2e0\uc0ac\ub3d9", title: "\ub3c4\uc0b0\ub300\ub85c \ucf54\ub108 \ube4c\ub529", price: 32000000000, priceStr: "320\uc5b5", spec: "B2 / 8F \u00b7 \uc5f0 3,400\u33a1 \u00b7 \ub300\uc9c0 420\u33a1", type: "\ucf54\ub108 \ube4c\ub529", yield: 2.1, landArea: 420, totalArea: 3400, lat: 37.522, lng: 127.033 },
+  { id: 3, slug: "yeoksam-income", img: l3, area: "\uac15\ub0a8\uad6c \u00b7 \uc5ed\uc0bc\ub3d9", title: "\uc5ed\uc0bc \uc218\uc775\ud615 \ube4c\ub529", price: 21500000000, priceStr: "215\uc5b5", spec: "B2 / 7F \u00b7 \uc5f0 2,800\u33a1 \u00b7 \ub300\uc9c0 360\u33a1", type: "\uc218\uc775\ud615", yield: 3.1, landArea: 360, totalArea: 2800, lat: 37.498, lng: 127.036 },
+  { id: 4, slug: "samsung-hq", img: l1, area: "\uac15\ub0a8\uad6c \u00b7 \uc0bc\uc131\ub3d9", title: "\uc0bc\uc131\ub3d9 \uc0ac\uc625\ud615 \ube4c\ub529", price: 54000000000, priceStr: "540\uc5b5", spec: "B4 / 12F \u00b7 \uc5f0 5,400\u33a1 \u00b7 \ub300\uc9c0 680\u33a1", type: "\uc0ac\uc625\ud615", yield: 4.1, landArea: 680, totalArea: 5400, lat: 37.511, lng: 127.058 },
+  { id: 5, slug: "seocho-gangnam", img: l2, area: "\uc11c\ucd08\uad6c \u00b7 \uc11c\ucd08\ub3d9", title: "\uc11c\ucd08 \uac15\ub0a8\ub300\ub85c \ube4c\ub529", price: 26000000000, priceStr: "260\uc5b5", spec: "B3 / 9F \u00b7 \uc5f0 3,100\u33a1 \u00b7 \ub300\uc9c0 410\u33a1", type: "\uc218\uc775\ud615", yield: 4.5, landArea: 410, totalArea: 3100, lat: 37.494, lng: 127.013 },
+  { id: 6, slug: "jamsil-main", img: l3, area: "\uc1a1\ud30c\uad6c \u00b7 \uc7a0\uc2e4\ub3d9", title: "\uc7a0\uc2e4 \uba54\uc778 \ube4c\ub529", price: 41000000000, priceStr: "410\uc5b5", spec: "B3 / 11F \u00b7 \uc5f0 4,800\u33a1 \u00b7 \ub300\uc9c0 590\u33a1", type: "\ud504\ub77c\uc784 \uc624\ud53c\uc2a4", yield: 6.1, landArea: 590, totalArea: 4800, lat: 37.513, lng: 127.100 },
 ];
 
 function MapPage() {
@@ -30,57 +30,35 @@ function MapPage() {
   const [mapInstance, setMapInstance] = useState<any>(null);
   const [clustererInstance, setClustererInstance] = useState<any>(null);
   
-  const [priceFilter, setPriceFilter] = useState("전체");
-  const [landAreaFilter, setLandAreaFilter] = useState("전체");
-  const [totalAreaFilter, setTotalAreaFilter] = useState("전체");
-  const [yieldFilter, setYieldFilter] = useState("전체");
+  const [priceFilter, setPriceFilter] = useState("\uc804\uccb4");
+  const [landAreaFilter, setLandAreaFilter] = useState("\uc804\uccb4");
+  const [totalAreaFilter, setTotalAreaFilter] = useState("\uc804\uccb4");
+  const [yieldFilter, setYieldFilter] = useState("\uc804\uccb4");
 
   const filteredListings = LISTINGS.filter((l) => {
-    if (priceFilter !== "전체") {
+    if (priceFilter !== "\uc804\uccb4") {
       const limit = parseInt(priceFilter.replace(/[^0-9]/g, "")) * 100000000;
       if (l.price > limit) return false;
     }
-    if (landAreaFilter !== "전체") {
+    if (landAreaFilter !== "\uc804\uccb4") {
       const limit = parseInt(landAreaFilter.replace(/[^0-9]/g, ""));
       if (l.landArea < limit) return false;
     }
-    if (totalAreaFilter !== "전체") {
+    if (totalAreaFilter !== "\uc804\uccb4") {
       const limit = parseInt(totalAreaFilter.replace(/[^0-9]/g, ""));
       if (l.totalArea < limit) return false;
     }
-    if (yieldFilter !== "전체") {
+    if (yieldFilter !== "\uc804\uccb4") {
       const limit = parseInt(yieldFilter.replace(/[^0-9]/g, ""));
       if (l.yield < limit) return false;
     }
     return true;
   });
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    // @ts-ignore
-    if (window.kakao && window.kakao.maps) {
-      initMap();
-      return;
-    }
-
-    if (document.getElementById("kakao-map-script")) return;
-    const script = document.createElement("script");
-    script.id = "kakao-map-script"; 
-    script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=57f311a217c25fabbd88c50ecfb75751&libraries=clusterer&autoload=false";
-    document.head.appendChild(script);
-    script.onload = () => {
-      // @ts-ignore
-      window.kakao.maps.load(() => {
-        initMap();
-      });
-    };
-  }, []);
-
-  const initMap = () => {
+  const initMap = useCallback(() => {
     if (typeof window === "undefined") return;
     // @ts-ignore
-    if (!mapRef.current || !window.kakao) return;
+    if (!mapRef.current || !window.kakao || !window.kakao.maps) return;
     
     const options = {
       // @ts-ignore
@@ -109,7 +87,31 @@ function MapPage() {
       }]
     });
     setClustererInstance(clusterer);
-  };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const tryInit = () => {
+      // @ts-ignore
+      if (window.kakao && window.kakao.maps) {
+        // @ts-ignore
+        if (window.kakao.maps.Map) {
+          initMap();
+        } else {
+          // @ts-ignore
+          window.kakao.maps.load(() => {
+            initMap();
+          });
+        }
+        return;
+      }
+      // SDK not yet loaded, retry after a short delay
+      setTimeout(tryInit, 200);
+    };
+
+    tryInit();
+  }, [initMap]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -161,7 +163,7 @@ function MapPage() {
           <div className="p-4 border-b border-border flex flex-wrap items-center gap-2 bg-secondary/10 shrink-0">
             <div className="flex items-center gap-2 mr-2">
               <Filter size={16} className="text-muted-foreground" />
-              <span className="text-sm font-medium">필터</span>
+              <span className="text-sm font-medium">{"\ud544\ud130"}</span>
             </div>
             
             <select 
@@ -169,10 +171,10 @@ function MapPage() {
               value={priceFilter}
               onChange={(e) => setPriceFilter(e.target.value)}
             >
-              <option value="전체">가격 (전체)</option>
-              <option value="300억 이하">300억 이하</option>
-              <option value="400억 이하">400억 이하</option>
-              <option value="500억 이하">500억 이하</option>
+              <option value={"\uc804\uccb4"}>{"\uac00\uaca9 (\uc804\uccb4)"}</option>
+              <option value={"300\uc5b5 \uc774\ud558"}>{"300\uc5b5 \uc774\ud558"}</option>
+              <option value={"400\uc5b5 \uc774\ud558"}>{"400\uc5b5 \uc774\ud558"}</option>
+              <option value={"500\uc5b5 \uc774\ud558"}>{"500\uc5b5 \uc774\ud558"}</option>
             </select>
 
             <select 
@@ -180,10 +182,10 @@ function MapPage() {
               value={landAreaFilter}
               onChange={(e) => setLandAreaFilter(e.target.value)}
             >
-              <option value="전체">토지면적 (전체)</option>
-              <option value="400㎡ 이상">400㎡ 이상</option>
-              <option value="500㎡ 이상">500㎡ 이상</option>
-              <option value="600㎡ 이상">600㎡ 이상</option>
+              <option value={"\uc804\uccb4"}>{"\ud1a0\uc9c0\uba74\uc801 (\uc804\uccb4)"}</option>
+              <option value={"400\u33a1 \uc774\uc0c1"}>{"400\u33a1 \uc774\uc0c1"}</option>
+              <option value={"500\u33a1 \uc774\uc0c1"}>{"500\u33a1 \uc774\uc0c1"}</option>
+              <option value={"600\u33a1 \uc774\uc0c1"}>{"600\u33a1 \uc774\uc0c1"}</option>
             </select>
 
             <select 
@@ -191,10 +193,10 @@ function MapPage() {
               value={totalAreaFilter}
               onChange={(e) => setTotalAreaFilter(e.target.value)}
             >
-              <option value="전체">연면적 (전체)</option>
-              <option value="3000㎡ 이상">3000㎡ 이상</option>
-              <option value="4000㎡ 이상">4000㎡ 이상</option>
-              <option value="5000㎡ 이상">5000㎡ 이상</option>
+              <option value={"\uc804\uccb4"}>{"\uc5f0\uba74\uc801 (\uc804\uccb4)"}</option>
+              <option value={"3000\u33a1 \uc774\uc0c1"}>{"3000\u33a1 \uc774\uc0c1"}</option>
+              <option value={"4000\u33a1 \uc774\uc0c1"}>{"4000\u33a1 \uc774\uc0c1"}</option>
+              <option value={"5000\u33a1 \uc774\uc0c1"}>{"5000\u33a1 \uc774\uc0c1"}</option>
             </select>
 
             <select 
@@ -202,16 +204,16 @@ function MapPage() {
               value={yieldFilter}
               onChange={(e) => setYieldFilter(e.target.value)}
             >
-              <option value="전체">수익률 (전체)</option>
-              <option value="3% 이상">3% 이상</option>
-              <option value="4% 이상">4% 이상</option>
-              <option value="5% 이상">5% 이상</option>
+              <option value={"\uc804\uccb4"}>{"\uc218\uc775\ub960 (\uc804\uccb4)"}</option>
+              <option value={"3% \uc774\uc0c1"}>{"3% \uc774\uc0c1"}</option>
+              <option value={"4% \uc774\uc0c1"}>{"4% \uc774\uc0c1"}</option>
+              <option value={"5% \uc774\uc0c1"}>{"5% \uc774\uc0c1"}</option>
             </select>
           </div>
           
           <div className="flex-1 overflow-y-auto p-4 lg:p-6">
             <div className="text-sm font-medium text-foreground pb-3 mb-4 border-b border-border">
-              총 {filteredListings.length}개의 매물
+              {"\ucd1d"} {filteredListings.length}{"\uac1c\uc758 \ub9e4\ubb3c"}
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {filteredListings.map(l => (
@@ -235,9 +237,9 @@ function MapPage() {
                     <div className="mt-1.5 text-xs text-muted-foreground flex items-center gap-2">
                       <span>{l.type}</span>
                       <span className="opacity-40">|</span>
-                      <span>수익률 {l.yield}%</span>
+                      <span>{"\uc218\uc775\ub960"} {l.yield}%</span>
                       <span className="opacity-40">|</span>
-                      <span>{l.totalArea.toLocaleString()}㎡</span>
+                      <span>{l.totalArea.toLocaleString()}{"\u33a1"}</span>
                     </div>
                     <div className="mt-3 text-foreground text-2xl font-normal">{l.title}</div>
                     <div className="text-xs text-muted-foreground">{l.area}</div>
@@ -248,25 +250,25 @@ function MapPage() {
 
             {filteredListings.length === 0 && (
               <div className="py-24 text-center">
-                <div className="text-muted-foreground mb-4">조건에 맞는 매물이 없습니다.</div>
+                <div className="text-muted-foreground mb-4">{"\uc870\uac74\uc5d0 \ub9de\ub294 \ub9e4\ubb3c\uc774 \uc5c6\uc2b5\ub2c8\ub2e4."}</div>
                 <button
                   onClick={() => {
-                    setPriceFilter("전체");
-                    setLandAreaFilter("전체");
-                    setTotalAreaFilter("전체");
-                    setYieldFilter("전체");
+                    setPriceFilter("\uc804\uccb4");
+                    setLandAreaFilter("\uc804\uccb4");
+                    setTotalAreaFilter("\uc804\uccb4");
+                    setYieldFilter("\uc804\uccb4");
                   }}
                   className="px-5 py-2.5 bg-foreground text-background rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
                 >
-                  필터 초기화
+                  {"\ud544\ud130 \ucd08\uae30\ud654"}
                 </button>
               </div>
             )}
           </div>
         </div>
 
-        <div className="w-full h-[350px] lg:h-auto lg:w-[55%] relative shrink-0">
-          <div ref={mapRef} className="w-full h-full bg-secondary" />
+        <div className="w-full lg:w-[55%] shrink-0" style={{ height: "calc(100vh - 5rem)" }}>
+          <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
         </div>
       </div>
     </div>

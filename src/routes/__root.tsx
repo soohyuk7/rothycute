@@ -87,6 +87,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
     ],
+    scripts: [
+      {
+        src: "//dapi.kakao.com/v2/maps/sdk.js?appkey=57f311a217c25fabbd88c50ecfb75751&libraries=clusterer&autoload=false",
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
