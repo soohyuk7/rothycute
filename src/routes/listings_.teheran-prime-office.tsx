@@ -247,7 +247,7 @@ function DetailPage() {
                   <span
                     className="text-foreground leading-[1.6] tracking-[-0.01em] text-2xl font-thin"
                     style={{
-                      fontFamily: "Pretendard, ui-sans-serif, system-ui, sans-serif",
+                      fontFamily: '"Pretendard Variable", Pretendard, ui-sans-serif, system-ui, sans-serif',
                     }}
                   >
                     {p}
